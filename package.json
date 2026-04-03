@@ -1,0 +1,37 @@
+{
+  "name": "visionary-ai-desktop",
+  "version": "1.0.0",
+  "description": "VisionaryAI — Eye Disease Detection Desktop App",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently --kill-others \"npm run dev:react\" \"npm run dev:electron\"",
+    "dev:react": "cd frontend && npx vite",
+    "dev:electron": "npx wait-on http://localhost:5173 && npx electron .",
+    "build:react": "cd frontend && npx vite build",
+    "build": "npm run build:react && npx electron-builder",
+    "start:backend": "cd backend && python -m uvicorn app:app --host 127.0.0.1 --port 8000 --reload"
+  },
+  "dependencies": {
+    "sql.js": "^1.11.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "electron": "^29.1.4",
+    "electron-builder": "^24.13.3",
+    "vite": "^5.2.0",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.visionaryai.desktop",
+    "productName": "VisionaryAI",
+    "directories": { "output": "dist-app" },
+    "files": ["electron/**/*", "frontend/dist/**/*", "node_modules/sql.js/**/*"],
+    "extraResources": [
+      { "from": "backend", "to": "backend", "filter": ["**/*", "!__pycache__/**", "!*.pyc"] }
+    ],
+    "win": { "target": "nsis" },
+    "mac": { "target": "dmg" },
+    "linux": { "target": "AppImage" }
+  }
+}

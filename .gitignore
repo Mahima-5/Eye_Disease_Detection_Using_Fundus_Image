@@ -1,0 +1,13 @@
+node_modules/
+frontend/dist/
+dist-app/
+backend/__pycache__/
+backend/*.pyc
+backend/visionary.db
+backend/logs/
+backend/training_curves.png
+backend/confusion_matrix.png
+backend/gradcam_output.png
+*.egg-info/
+.DS_Store
+Thumbs.db
